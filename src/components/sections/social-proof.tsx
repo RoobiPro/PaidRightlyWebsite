@@ -99,7 +99,7 @@ export function SocialProof() {
                 &ldquo;{testimonial.content}&rdquo;
               </p>
               <div className="mt-6 pt-4 border-t border-[var(--border)] flex items-center gap-3">
-                <Image
+                <img
                   src={testimonial.image}
                   alt={testimonial.name}
                   width={40}
