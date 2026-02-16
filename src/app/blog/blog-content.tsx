@@ -47,6 +47,7 @@ const posts = [
     readTime: "6 min read",
     date: "Jan 20, 2026",
     image: "/images/blog_4.png",
+    href: "/blog/vat-for-freelancers",
   },
   {
     title: "Freelancer vs. Employee: The Real Cost Comparison",
