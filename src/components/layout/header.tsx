@@ -77,9 +77,6 @@ export function Header() {
             >
               {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-            <Button variant="outline" size="sm">
-              Log In
-            </Button>
             <Button size="sm">Join Waitlist</Button>
           </div>
 
@@ -117,9 +114,6 @@ export function Header() {
                 </Link>
               ))}
               <div className="flex gap-2 mt-3 px-3">
-                <Button variant="outline" size="sm" className="flex-1">
-                  Log In
-                </Button>
                 <Button size="sm" className="flex-1">
                   Join Waitlist
                 </Button>
