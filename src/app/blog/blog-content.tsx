@@ -57,6 +57,7 @@ const posts = [
     readTime: "7 min read",
     date: "Jan 14, 2026",
     image: "/images/part_5.png",
+    href: "/blog/freelancer-vs-employee",
   },
   {
     title: "How to Set Your Freelance Rate (Without Underselling Yourself)",
