@@ -67,6 +67,7 @@ const posts = [
     readTime: "5 min read",
     date: "Jan 7, 2026",
     image: "/images/part_6.png",
+    href: "/blog/set-freelance-rate",
   },
 ];
 
