@@ -9,7 +9,7 @@ import { ArrowRight, Play } from "lucide-react";
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 pt-20 overflow-hidden">
-      {/* Background image */}
+      {/* Background image + overlay */}
       <div className="absolute inset-0">
         <Image
           src="/images/Hero_background.png"
@@ -18,8 +18,16 @@ export function Hero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-white/85 dark:bg-[#0b1120]/88" />
+        {/* Dark mode: simple dark overlay */}
+        <div className="absolute inset-0 hidden dark:block bg-[#0b1120]/88" />
+        {/* Light mode: opaque base + colored gradient on top for depth */}
+        <div className="absolute inset-0 dark:hidden bg-white/95" />
+        <div className="absolute inset-0 dark:hidden bg-gradient-to-br from-primary-100/70 via-transparent to-coral/15" />
       </div>
+      {/* Decorative blobs for light mode depth */}
+      <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] bg-primary-200/40 dark:bg-primary-800/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/3 -left-32 w-[400px] h-[400px] bg-coral/15 dark:bg-coral/5 rounded-full blur-3xl" />
+      <div className="absolute top-10 left-1/3 w-[300px] h-[300px] bg-primary-300/20 dark:bg-transparent rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto text-center">
         <FadeIn>
@@ -88,7 +96,7 @@ export function Hero() {
 
 function FlowStep({ label, emoji }: { label: string; emoji: string }) {
   return (
-    <div className="flex items-center gap-2 bg-[var(--muted)] rounded-lg px-4 py-2">
+    <div className="flex items-center gap-2 bg-white/80 dark:bg-[var(--muted)] backdrop-blur-sm border border-[var(--border)] rounded-lg px-4 py-2 shadow-sm">
       <span>{emoji}</span>
       <span className="text-[var(--foreground)] font-medium whitespace-nowrap">{label}</span>
     </div>
