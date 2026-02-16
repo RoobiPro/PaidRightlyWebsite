@@ -37,6 +37,7 @@ const posts = [
     readTime: "4 min read",
     date: "Jan 28, 2026",
     image: "/images/part_3.png",
+    href: "/blog/why-we-built-paidrightly",
   },
   {
     title: "VAT for Freelancers: A No-Nonsense Explanation",
