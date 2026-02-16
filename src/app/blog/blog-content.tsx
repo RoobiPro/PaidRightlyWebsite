@@ -27,6 +27,7 @@ const posts = [
     readTime: "5 min read",
     date: "Feb 5, 2026",
     image: "/images/blog_2.png",
+    href: "/blog/tax-mistakes-freelancers",
   },
   {
     title: "Why We Built PaidRightly",
