@@ -21,8 +21,8 @@ export function CTA() {
                 about taxes?
               </h2>
               <p className="mt-4 text-lg text-primary-100 max-w-xl mx-auto">
-                Join thousands of freelancers who have already reclaimed their
-                time. Get started in 5 minutes.
+                Our early access is currently full, but we&apos;re opening more
+                spots soon. Join the waitlist to be first in line.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
@@ -30,7 +30,7 @@ export function CTA() {
                   size="lg"
                   className="bg-white! text-primary-700! border-white! hover:bg-primary-50! shadow-lg group"
                 >
-                  Get Started Free
+                  Join the Waitlist
                   <ArrowRight
                     size={18}
                     className="ml-2 group-hover:translate-x-1 transition-transform"
@@ -45,7 +45,7 @@ export function CTA() {
                 </Button>
               </div>
               <p className="mt-4 text-sm text-primary-200">
-                No credit card required &middot; Cancel anytime
+                No commitment &middot; We&apos;ll notify you when a spot opens up
               </p>
             </div>
           </div>

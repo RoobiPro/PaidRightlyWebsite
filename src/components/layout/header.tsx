@@ -80,7 +80,7 @@ export function Header() {
             <Button variant="outline" size="sm">
               Log In
             </Button>
-            <Button size="sm">Get Started</Button>
+            <Button size="sm">Join Waitlist</Button>
           </div>
 
           {/* Mobile menu button */}
@@ -121,7 +121,7 @@ export function Header() {
                   Log In
                 </Button>
                 <Button size="sm" className="flex-1">
-                  Get Started
+                  Join Waitlist
                 </Button>
               </div>
             </div>

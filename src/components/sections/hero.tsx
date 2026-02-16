@@ -31,7 +31,7 @@ export function Hero() {
 
       <div className="relative max-w-7xl mx-auto text-center">
         <FadeIn>
-          <Badge className="mb-6">Now in Early Access</Badge>
+          <Badge className="mb-6">Early Access is Full</Badge>
         </FadeIn>
 
         <FadeIn delay={0.1}>
@@ -55,7 +55,7 @@ export function Hero() {
         <FadeIn delay={0.3}>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" className="group">
-              Get Started Free
+              Join the Waitlist
               <ArrowRight
                 size={18}
                 className="ml-2 group-hover:translate-x-1 transition-transform"
@@ -73,7 +73,7 @@ export function Hero() {
 
         <FadeIn delay={0.4}>
           <p className="mt-6 text-sm text-[var(--muted-foreground)]">
-            Free to try &middot; No credit card required &middot; Setup in 5 minutes
+            Early access is currently full &middot; Join the waitlist to be first in line
           </p>
         </FadeIn>
 

@@ -22,7 +22,7 @@ const plans = [
       "Email support",
       "Monthly payouts",
     ],
-    cta: "Start Free Trial",
+    cta: "Join the Waitlist",
     popular: false,
   },
   {
@@ -39,7 +39,7 @@ const plans = [
       "Priority support",
       "Expense tracking",
     ],
-    cta: "Start Free Trial",
+    cta: "Join the Waitlist",
     popular: true,
   },
   {
