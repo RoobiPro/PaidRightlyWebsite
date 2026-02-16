@@ -17,6 +17,7 @@ const posts = [
     readTime: "8 min read",
     date: "Feb 12, 2026",
     image: "/images/blog_1.png",
+    href: "/blog/freelancer-taxes-2026",
   },
   {
     title: "5 Tax Mistakes Freelancers Make (and How to Avoid Them)",
@@ -77,7 +78,7 @@ export function BlogContent() {
         <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
             <StaggerItem key={post.title}>
-              <Link href="#" className="block group">
+              <Link href={"href" in post && post.href ? post.href : "#"} className="block group">
                 <Card className="h-full flex flex-col">
                   <div className="w-full h-44 rounded-xl mb-4 overflow-hidden relative">
                     <Image
