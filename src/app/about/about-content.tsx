@@ -38,21 +38,25 @@ const team = [
     name: "Alex Rivera",
     role: "CEO & Co-founder",
     bio: "Former freelance developer turned fintech founder. Spent too many weekends doing tax admin.",
+    image: "/images/alex_rivera.png",
   },
   {
     name: "Emma Lindström",
     role: "CTO & Co-founder",
     bio: "Ex-Wise engineer. Believes every financial process can be automated if you're stubborn enough.",
+    image: "/images/emma_lindstroem.png",
   },
   {
     name: "James Okafor",
     role: "Head of Compliance",
     bio: "15 years in tax law. Now uses that knowledge to make sure freelancers never have to learn it.",
+    image: "/images/james_okafor.png",
   },
   {
     name: "Maria Santos",
     role: "Head of Product",
     bio: "Product designer who has freelanced in 4 countries. Knows the pain firsthand.",
+    image: "/images/maria_santos.png",
   },
 ];
 
@@ -166,14 +170,13 @@ export function AboutContent() {
           {team.map((member) => (
             <StaggerItem key={member.name}>
               <Card className="text-center h-full">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-primary-600 dark:text-primary-300">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
-                </div>
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  width={80}
+                  height={80}
+                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                />
                 <h3 className="font-semibold text-[var(--foreground)]">
                   {member.name}
                 </h3>
