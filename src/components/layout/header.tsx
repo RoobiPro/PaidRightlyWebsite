@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
@@ -21,6 +22,16 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleWaitlistClick = () => {
+    if (pathname === "/") {
+      document.getElementById("hero-waitlist")?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/#hero-waitlist");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -77,10 +88,7 @@ export function Header() {
             >
               {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-            <Button
-              size="sm"
-              onClick={() => document.getElementById("hero-waitlist")?.scrollIntoView({ behavior: "smooth" })}
-            >
+            <Button size="sm" onClick={handleWaitlistClick}>
               Join Waitlist
             </Button>
           </div>
@@ -124,7 +132,7 @@ export function Header() {
                   className="flex-1"
                   onClick={() => {
                     setIsOpen(false);
-                    document.getElementById("hero-waitlist")?.scrollIntoView({ behavior: "smooth" });
+                    handleWaitlistClick();
                   }}
                 >
                   Join Waitlist
