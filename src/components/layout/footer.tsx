@@ -79,7 +79,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-[var(--muted-foreground)]">
-            &copy; {new Date().getFullYear()} PaidRightly. All rights reserved.
+            &copy; {new Date().getFullYear()} Paid Rightly LLC. All rights reserved.
           </p>
           <p className="text-sm text-[var(--muted-foreground)]">
             Made with care for freelancers everywhere.

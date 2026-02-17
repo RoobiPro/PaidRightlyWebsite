@@ -66,7 +66,7 @@ export function ContactContent() {
                       Live Chat
                     </h3>
                     <p className="text-sm text-[var(--muted-foreground)] mt-1">
-                      Available Mon-Fri, 9am-6pm CET
+                      Available Mon-Fri, 9am-5pm MST
                     </p>
                   </div>
                 </div>
@@ -85,7 +85,9 @@ export function ContactContent() {
                       Office
                     </h3>
                     <p className="text-sm text-[var(--muted-foreground)] mt-1">
-                      Amsterdam, Netherlands
+                      1209 Mountain Road Pl NE,
+                      <br />
+                      Suite N, Albuquerque, NM 87110
                     </p>
                   </div>
                 </div>
