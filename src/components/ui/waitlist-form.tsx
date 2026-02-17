@@ -129,7 +129,7 @@ export function WaitlistForm({
         onSuccess={setToken}
         onExpire={() => setToken(null)}
         options={{ size: "flexible", theme: "auto" }}
-        className="mt-3"
+        className="mt-3 overflow-hidden rounded-lg"
       />
       {status === "error" && (
         <p className="mt-2 text-sm text-red-500">{message}</p>
