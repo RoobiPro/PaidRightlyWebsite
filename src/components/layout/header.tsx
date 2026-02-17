@@ -77,7 +77,12 @@ export function Header() {
             >
               {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-            <Button size="sm">Join Waitlist</Button>
+            <Button
+              size="sm"
+              onClick={() => document.getElementById("hero-waitlist")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              Join Waitlist
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -114,7 +119,14 @@ export function Header() {
                 </Link>
               ))}
               <div className="flex gap-2 mt-3 px-3">
-                <Button size="sm" className="flex-1">
+                <Button
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => {
+                    setIsOpen(false);
+                    document.getElementById("hero-waitlist")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
                   Join Waitlist
                 </Button>
               </div>

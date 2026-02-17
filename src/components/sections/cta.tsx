@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/animate";
-import { ArrowRight } from "lucide-react";
+import { WaitlistForm } from "@/components/ui/waitlist-form";
 
 export function CTA() {
   return (
@@ -24,18 +24,13 @@ export function CTA() {
                 Our early access is currently full, but we&apos;re opening more
                 spots soon. Join the waitlist to be first in line.
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="bg-white! text-primary-700! border-white! hover:bg-primary-50! shadow-lg group"
-                >
-                  Join the Waitlist
-                  <ArrowRight
-                    size={18}
-                    className="ml-2 group-hover:translate-x-1 transition-transform"
-                  />
-                </Button>
+              <div className="mt-8 flex flex-col items-center gap-4">
+                <WaitlistForm
+                  source="cta"
+                  buttonText="Join the Waitlist"
+                  inputClassName="bg-white/10! border-white/30! text-white! placeholder:text-primary-200! focus:ring-white/50!"
+                  buttonClassName="bg-white! text-primary-700! hover:bg-primary-50!"
+                />
                 <Button
                   variant="ghost"
                   size="lg"

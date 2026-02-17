@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { useTheme } from "./theme-provider";
+import { WaitlistForm } from "@/components/ui/waitlist-form";
 import { Twitter, Linkedin, Github, Instagram } from "lucide-react";
 
 const footerLinks = {
@@ -35,17 +34,7 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const { theme } = useTheme();
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail("");
-    }
-  };
 
   return (
     <footer className="bg-[var(--muted)] border-t border-[var(--border)]">
@@ -74,30 +63,12 @@ export function Footer() {
               handle all the tax admin.
             </p>
 
-            {/* Newsletter */}
+            {/* Waitlist */}
             <div className="mb-6">
               <p className="text-sm font-semibold text-[var(--foreground)] mb-2">
                 Stay in the loop
               </p>
-              {subscribed ? (
-                <p className="text-sm text-primary-600">
-                  Thanks for subscribing!
-                </p>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@email.com"
-                    required
-                    className="flex-1 px-3 py-2 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  />
-                  <Button size="sm" type="submit">
-                    Subscribe
-                  </Button>
-                </form>
-              )}
+              <WaitlistForm source="footer" buttonText="Subscribe" />
             </div>
 
             {/* Social */}
