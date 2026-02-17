@@ -125,7 +125,7 @@ export function WaitlistForm({
       </form>
       <Turnstile
         ref={turnstileRef}
-        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+        siteKey="0x4AAAAAACeRTfBYWOIrMxy8"
         onSuccess={setToken}
         onExpire={() => setToken(null)}
         options={{ size: "compact", theme: "auto" }}
