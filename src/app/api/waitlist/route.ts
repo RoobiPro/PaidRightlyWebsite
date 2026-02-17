@@ -3,10 +3,32 @@ import pool from "@/lib/db";
 
 const VALID_SOURCES = ["hero", "cta", "pricing", "footer", "pricing-starter", "pricing-pro"];
 
+async function verifyTurnstile(token: string): Promise<boolean> {
+  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      secret: process.env.TURNSTILE_SECRET_KEY!,
+      response: token,
+    }),
+  });
+  const data = await res.json();
+  return data.success === true;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, source } = body;
+    const { email, source, token } = body;
+
+    if (!token || typeof token !== "string") {
+      return NextResponse.json({ error: "Verification required" }, { status: 400 });
+    }
+
+    const isHuman = await verifyTurnstile(token);
+    if (!isHuman) {
+      return NextResponse.json({ error: "Verification failed. Please try again." }, { status: 403 });
+    }
 
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });

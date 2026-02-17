@@ -10,6 +10,7 @@
     "migrate": "npx tsx --env-file=.env.local scripts/migrate.ts"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.4.2",
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.564.0",
     "mysql2": "^3.17.1",

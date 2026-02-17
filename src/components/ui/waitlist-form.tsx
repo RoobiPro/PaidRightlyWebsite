@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 
@@ -24,17 +25,25 @@ export function WaitlistForm({
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || status === "loading") return;
+
+    if (!token) {
+      setStatus("error");
+      setMessage("Please complete the verification.");
+      return;
+    }
 
     setStatus("loading");
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify({ email, source, token }),
       });
 
       const data = await res.json();
@@ -46,10 +55,14 @@ export function WaitlistForm({
       } else {
         setStatus("error");
         setMessage(data.error || "Something went wrong.");
+        turnstileRef.current?.reset();
+        setToken(null);
       }
     } catch {
       setStatus("error");
       setMessage("Network error. Please try again.");
+      turnstileRef.current?.reset();
+      setToken(null);
     }
   };
 
@@ -92,7 +105,7 @@ export function WaitlistForm({
         />
         <button
           type="submit"
-          disabled={status === "loading"}
+          disabled={status === "loading" || !token}
           className={cn(
             "inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg transition-all cursor-pointer",
             "bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-60",
@@ -110,6 +123,14 @@ export function WaitlistForm({
           )}
         </button>
       </form>
+      <Turnstile
+        ref={turnstileRef}
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+        onSuccess={setToken}
+        onExpire={() => setToken(null)}
+        options={{ size: "compact", theme: "auto" }}
+        className="mt-3"
+      />
       {status === "error" && (
         <p className="mt-2 text-sm text-red-500">{message}</p>
       )}
