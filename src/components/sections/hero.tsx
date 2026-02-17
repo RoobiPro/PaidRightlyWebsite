@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/animate";
 import { WaitlistForm } from "@/components/ui/waitlist-form";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
@@ -56,13 +55,6 @@ export function Hero() {
         <FadeIn delay={0.3}>
           <div id="hero-waitlist" className="mt-10 flex flex-col items-center gap-4">
             <WaitlistForm source="hero" buttonText="Join the Waitlist" />
-            <Button variant="ghost" size="lg" className="group">
-              <Play
-                size={16}
-                className="mr-2 group-hover:scale-110 transition-transform"
-              />
-              Watch How It Works
-            </Button>
           </div>
         </FadeIn>
 

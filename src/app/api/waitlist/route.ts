@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 
-const VALID_SOURCES = ["hero", "cta", "pricing", "footer", "pricing-starter", "pricing-pro"];
+const VALID_SOURCES = ["hero", "cta", "pricing", "pricing-starter", "pricing-pro"];
 
 async function verifyTurnstile(token: string): Promise<boolean> {
   const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {

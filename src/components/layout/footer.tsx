@@ -3,8 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "./theme-provider";
-import { WaitlistForm } from "@/components/ui/waitlist-form";
-import { Twitter, Linkedin, Github, Instagram } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -25,13 +23,6 @@ const footerLinks = {
     { href: "#", label: "Cookie Policy" },
   ],
 };
-
-const socialLinks = [
-  { href: "#", icon: Twitter, label: "Twitter" },
-  { href: "#", icon: Linkedin, label: "LinkedIn" },
-  { href: "#", icon: Github, label: "GitHub" },
-  { href: "#", icon: Instagram, label: "Instagram" },
-];
 
 export function Footer() {
   const { theme } = useTheme();
@@ -58,32 +49,10 @@ export function Footer() {
                 className="h-6 w-auto"
               />
             </Link>
-            <p className="text-[var(--muted-foreground)] text-sm mb-6 max-w-xs">
+            <p className="text-[var(--muted-foreground)] text-sm max-w-xs">
               Payroll for freelancers. Invoice your clients, get paid, and let us
               handle all the tax admin.
             </p>
-
-            {/* Waitlist */}
-            <div className="mb-6">
-              <p className="text-sm font-semibold text-[var(--foreground)] mb-2">
-                Stay in the loop
-              </p>
-              <WaitlistForm source="footer" buttonText="Subscribe" />
-            </div>
-
-            {/* Social */}
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="p-2 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--background)] transition-all"
-                >
-                  <social.icon size={18} />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Links */}
