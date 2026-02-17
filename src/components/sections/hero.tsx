@@ -53,7 +53,7 @@ export function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.3}>
-          <div id="hero-waitlist" className="mt-10 flex flex-col items-center gap-4">
+          <div id="hero-waitlist" className="mt-10 flex flex-col items-center gap-4 scroll-mt-24">
             <WaitlistForm source="hero" buttonText="Join the Waitlist" />
           </div>
         </FadeIn>
