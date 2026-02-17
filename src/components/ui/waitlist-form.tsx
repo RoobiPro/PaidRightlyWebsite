@@ -128,7 +128,7 @@ export function WaitlistForm({
         siteKey="0x4AAAAAACeRTfBYWOIrMxy8"
         onSuccess={setToken}
         onExpire={() => setToken(null)}
-        options={{ size: "compact", theme: "auto" }}
+        options={{ size: "flexible", theme: "auto" }}
         className="mt-3"
       />
       {status === "error" && (
