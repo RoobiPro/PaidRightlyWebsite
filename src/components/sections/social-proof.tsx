@@ -1,7 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
-import Script from "next/script";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { FadeIn } from "@/components/ui/animate";
 import { ShieldCheck, Lock, Award } from "lucide-react";
@@ -20,6 +20,48 @@ const trustBadges = [
 ];
 
 export function SocialProof() {
+  useEffect(() => {
+    const widgetScript = document.createElement("script");
+    widgetScript.src = "https://reviewplatform-production.up.railway.app/widget.js";
+    widgetScript.async = true;
+    document.body.appendChild(widgetScript);
+
+    const syncScript = document.createElement("script");
+    syncScript.textContent = `(function() {
+  function notifyWidget(isDark) {
+    var iframe = document.querySelector('iframe[title="VerifiedReviews Widget"]');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
+        '*'
+      );
+    }
+  }
+  var observer = new MutationObserver(function() {
+    var html = document.documentElement;
+    var isDark = html.classList.contains('dark') ||
+                 html.getAttribute('data-theme') === 'dark' ||
+                 html.getAttribute('data-color-scheme') === 'dark';
+    notifyWidget(isDark);
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class', 'data-theme', 'data-color-scheme']
+  });
+  var html = document.documentElement;
+  var isDark = html.classList.contains('dark') ||
+               html.getAttribute('data-theme') === 'dark' ||
+               html.getAttribute('data-color-scheme') === 'dark';
+  notifyWidget(isDark);
+})();`;
+    document.body.appendChild(syncScript);
+
+    return () => {
+      document.body.removeChild(widgetScript);
+      document.body.removeChild(syncScript);
+    };
+  }, []);
+
   return (
     <Section id="testimonials" className="relative overflow-hidden">
       {/* Background image */}
@@ -62,40 +104,6 @@ export function SocialProof() {
             data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
             data-theme="auto"
           />
-          <Script src="https://reviewplatform-production.up.railway.app/widget.js" strategy="lazyOnload" />
-          <Script id="vr-dark-mode-sync" strategy="lazyOnload">{`
-(function() {
-  function notifyWidget(isDark) {
-    var iframe = document.querySelector('iframe[title="VerifiedReviews Widget"]');
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
-        '*'
-      );
-    }
-  }
-
-  var observer = new MutationObserver(function() {
-    var html = document.documentElement;
-    var isDark = html.classList.contains('dark') ||
-                 html.getAttribute('data-theme') === 'dark' ||
-                 html.getAttribute('data-color-scheme') === 'dark';
-    notifyWidget(isDark);
-  });
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['class', 'data-theme', 'data-color-scheme']
-  });
-
-  window.addEventListener('load', function() {
-    var html = document.documentElement;
-    var isDark = html.classList.contains('dark') ||
-                 html.getAttribute('data-theme') === 'dark' ||
-                 html.getAttribute('data-color-scheme') === 'dark';
-    notifyWidget(isDark);
-  });
-})();
-          `}</Script>
         </div>
       </FadeIn>
 
