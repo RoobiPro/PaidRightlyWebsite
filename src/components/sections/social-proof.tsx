@@ -60,7 +60,10 @@ export function SocialProof() {
       document.body.removeChild(widgetScript);
       document.body.removeChild(syncScript);
       const container = document.getElementById("verifiedreviews-widget");
-      if (container) container.innerHTML = "";
+      if (container) {
+        container.innerHTML = "";
+        container.removeAttribute("data-vr-mounting");
+      }
     };
   }, []);
 
