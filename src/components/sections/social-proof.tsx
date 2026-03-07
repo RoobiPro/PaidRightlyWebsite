@@ -23,32 +23,40 @@ export function SocialProof() {
   useEffect(() => {
     const syncScript = document.createElement("script");
     syncScript.textContent = `(function() {
+  function isDarkMode() {
+    var html = document.documentElement;
+    return html.classList.contains('dark') ||
+           html.getAttribute('data-theme') === 'dark' ||
+           html.getAttribute('data-color-scheme') === 'dark';
+  }
+
   function notifyWidget(isDark) {
     var iframe = document.querySelector('iframe[title="VerifiedReviews Widget"]');
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
-        '*'
-      );
-    }
+    if (!iframe || !iframe.contentWindow) return false;
+    iframe.contentWindow.postMessage(
+      { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
+      '*'
+    );
+    return true;
   }
+
   var observer = new MutationObserver(function() {
-    var html = document.documentElement;
-    var isDark = html.classList.contains('dark') ||
-                 html.getAttribute('data-theme') === 'dark' ||
-                 html.getAttribute('data-color-scheme') === 'dark';
-    notifyWidget(isDark);
+    notifyWidget(isDarkMode());
   });
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['class', 'data-theme', 'data-color-scheme']
   });
-  window.addEventListener('load', function() {
-    var html = document.documentElement;
-    var isDark = html.classList.contains('dark') ||
-                 html.getAttribute('data-theme') === 'dark' ||
-                 html.getAttribute('data-color-scheme') === 'dark';
-    notifyWidget(isDark);
+
+  var pollCount = 0;
+  function pollAndSync() {
+    if (notifyWidget(isDarkMode())) return;
+    if (++pollCount < 50) setTimeout(pollAndSync, 300);
+  }
+  setTimeout(pollAndSync, 100);
+
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'vr-ready') notifyWidget(isDarkMode());
   });
 })();`;
     document.body.appendChild(syncScript);
