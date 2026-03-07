@@ -60,10 +60,6 @@ export function SocialProof() {
           <div
             id="verifiedreviews-widget"
             data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
-            data-theme="light"
-            data-accent="#2563eb"
-            data-layout="carousel"
-            data-max="10"
           />
           <Script src="https://reviewplatform-production.up.railway.app/widget.js" strategy="lazyOnload" />
         </div>
