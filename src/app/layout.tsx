@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 // import { Inter } from "next/font/google"; // original font — uncomment to roll back
-import { Plus_Jakarta_Sans, Syne } from "next/font/google";
+import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -14,9 +14,11 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const syne = Syne({
+// const syne = Syne({ subsets: ["latin"], variable: "--font-syne", display: "swap" }); // previous heading font
+
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-syne",
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -65,7 +67,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       {/* original: className={`${inter.variable} font-sans antialiased`} */}
-      <body className={`${jakarta.variable} ${syne.variable} font-sans antialiased`}>
+      {/* previous: className={`${jakarta.variable} ${syne.variable} font-sans antialiased`} */}
+      <body className={`${jakarta.variable} ${fraunces.variable} font-sans antialiased`}>
         <ThemeProvider>
           <Header />
           <main>{children}</main>
