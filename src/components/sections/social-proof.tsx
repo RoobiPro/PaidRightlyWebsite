@@ -60,8 +60,42 @@ export function SocialProof() {
           <div
             id="verifiedreviews-widget"
             data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
+            data-theme="auto"
           />
           <Script src="https://reviewplatform-production.up.railway.app/widget.js" strategy="lazyOnload" />
+          <Script id="vr-dark-mode-sync" strategy="lazyOnload">{`
+(function() {
+  function notifyWidget(isDark) {
+    var iframe = document.querySelector('iframe[title="VerifiedReviews Widget"]');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
+        '*'
+      );
+    }
+  }
+
+  var observer = new MutationObserver(function() {
+    var html = document.documentElement;
+    var isDark = html.classList.contains('dark') ||
+                 html.getAttribute('data-theme') === 'dark' ||
+                 html.getAttribute('data-color-scheme') === 'dark';
+    notifyWidget(isDark);
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class', 'data-theme', 'data-color-scheme']
+  });
+
+  window.addEventListener('load', function() {
+    var html = document.documentElement;
+    var isDark = html.classList.contains('dark') ||
+                 html.getAttribute('data-theme') === 'dark' ||
+                 html.getAttribute('data-color-scheme') === 'dark';
+    notifyWidget(isDark);
+  });
+})();
+          `}</Script>
         </div>
       </FadeIn>
 
