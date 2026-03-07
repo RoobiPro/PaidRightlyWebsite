@@ -1,37 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Script from "next/script";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { Card } from "@/components/ui/card";
-import { FadeIn, StaggerChildren, StaggerItem } from "@/components/ui/animate";
-import { Star, ShieldCheck, Lock, Award } from "lucide-react";
-
-const testimonials = [
-  {
-    name: "Sarah Chen",
-    role: "UX Designer",
-    image: "/images/customer_sarah_chen.png",
-    content:
-      "I used to spend an entire weekend every quarter doing my taxes. Now I just invoice my clients and forget about it. PaidRightly literally gave me my weekends back.",
-    rating: 5,
-  },
-  {
-    name: "Marcus Johansson",
-    role: "Full-Stack Developer",
-    image: "/images/customer_marcus_johansson.png",
-    content:
-      "The dashboard alone is worth the price. I can see exactly how much I've earned, what's been set aside for taxes, and when my next payout is. No more surprises.",
-    rating: 5,
-  },
-  {
-    name: "Priya Patel",
-    role: "Marketing Consultant",
-    image: "/images/customer_priya_patel.png",
-    content:
-      "I was terrified of getting my VAT wrong and getting fined. PaidRightly handles it all automatically. It's like having a personal accountant for a fraction of the cost.",
-    rating: 5,
-  },
-];
+import { FadeIn } from "@/components/ui/animate";
+import { ShieldCheck, Lock, Award } from "lucide-react";
 
 const stats = [
   { value: "2,400+", label: "Freelancers trust us" },
@@ -81,44 +54,20 @@ export function SocialProof() {
         </div>
       </FadeIn>
 
-      {/* Testimonials */}
-      <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        {testimonials.map((testimonial) => (
-          <StaggerItem key={testimonial.name}>
-            <Card className="h-full flex flex-col">
-              <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={16}
-                    className="fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-              </div>
-              <p className="text-sm text-[var(--muted-foreground)] leading-relaxed flex-1">
-                &ldquo;{testimonial.content}&rdquo;
-              </p>
-              <div className="mt-6 pt-4 border-t border-[var(--border)] flex items-center gap-3">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  width={40}
-                  height={40}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-semibold text-sm text-[var(--foreground)]">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    {testimonial.role}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </StaggerItem>
-        ))}
-      </StaggerChildren>
+      {/* Verified Reviews Widget */}
+      <FadeIn>
+        <div className="mb-16">
+          <div
+            id="verifiedreviews-widget"
+            data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
+            data-theme="light"
+            data-accent="#2563eb"
+            data-layout="carousel"
+            data-max="10"
+          />
+          <Script src="https://reviewplatform-production.up.railway.app/widget.js" strategy="lazyOnload" />
+        </div>
+      </FadeIn>
 
       {/* Trust badges */}
       <FadeIn>
