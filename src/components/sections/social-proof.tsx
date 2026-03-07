@@ -59,6 +59,8 @@ export function SocialProof() {
     return () => {
       document.body.removeChild(widgetScript);
       document.body.removeChild(syncScript);
+      const container = document.getElementById("verifiedreviews-widget");
+      if (container) container.innerHTML = "";
     };
   }, []);
 
