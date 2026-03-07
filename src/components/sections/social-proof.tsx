@@ -21,11 +21,6 @@ const trustBadges = [
 
 export function SocialProof() {
   useEffect(() => {
-    const widgetScript = document.createElement("script");
-    widgetScript.src = "https://reviewplatform-production.up.railway.app/widget.js";
-    widgetScript.async = true;
-    document.body.appendChild(widgetScript);
-
     const syncScript = document.createElement("script");
     syncScript.textContent = `(function() {
   function notifyWidget(isDark) {
@@ -48,22 +43,24 @@ export function SocialProof() {
     attributes: true,
     attributeFilter: ['class', 'data-theme', 'data-color-scheme']
   });
-  var html = document.documentElement;
-  var isDark = html.classList.contains('dark') ||
-               html.getAttribute('data-theme') === 'dark' ||
-               html.getAttribute('data-color-scheme') === 'dark';
-  notifyWidget(isDark);
+  window.addEventListener('load', function() {
+    var html = document.documentElement;
+    var isDark = html.classList.contains('dark') ||
+                 html.getAttribute('data-theme') === 'dark' ||
+                 html.getAttribute('data-color-scheme') === 'dark';
+    notifyWidget(isDark);
+  });
 })();`;
     document.body.appendChild(syncScript);
 
+    const widgetScript = document.createElement("script");
+    widgetScript.src = "https://reviewplatform-production.up.railway.app/widget.js";
+    widgetScript.async = true;
+    document.body.appendChild(widgetScript);
+
     return () => {
-      document.body.removeChild(widgetScript);
       document.body.removeChild(syncScript);
-      const container = document.getElementById("verifiedreviews-widget");
-      if (container) {
-        container.innerHTML = "";
-        container.removeAttribute("data-vr-mounting");
-      }
+      document.body.removeChild(widgetScript);
     };
   }, []);
 
@@ -107,7 +104,6 @@ export function SocialProof() {
           <div
             id="verifiedreviews-widget"
             data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
-            data-theme="auto"
           />
         </div>
       </FadeIn>
