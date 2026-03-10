@@ -110,7 +110,7 @@ export function SocialProof() {
       <FadeIn>
         <div className="mb-16">
           <div
-            id="verifiedreviews-widget"
+            id="signedreviews-widget"
             data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
           />
         </div>
