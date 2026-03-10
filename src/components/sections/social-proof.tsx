@@ -31,7 +31,7 @@ export function SocialProof() {
   }
 
   function notifyWidget(isDark) {
-    var iframe = document.querySelector('iframe[title="VerifiedReviews Widget"]');
+    var iframe = document.querySelector('iframe[title="SignedReviews Widget"]');
     if (!iframe || !iframe.contentWindow) return false;
     iframe.contentWindow.postMessage(
       { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
