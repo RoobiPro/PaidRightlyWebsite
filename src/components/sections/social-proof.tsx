@@ -111,7 +111,7 @@ export function SocialProof() {
         <div className="mb-16">
           <div
             id="signedreviews-widget"
-            data-api-key="vr_ilXiFSLAPjjaTqJWp8ZgbTfUOSGR2bav"
+            data-api-key="vr_1lu980P7yYMxXZN6QysMXQuVgbbeiw15"
           />
         </div>
       </FadeIn>
