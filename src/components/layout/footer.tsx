@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "./theme-provider";
+
+const SIGNEDREVIEWS_API_KEY = "vr_1lu980P7yYMxXZN6QysMXQuVgbbeiw15";
 
 const footerLinks = {
   Product: [
@@ -25,6 +28,17 @@ const footerLinks = {
 
 export function Footer() {
   const { theme } = useTheme();
+
+  useEffect(() => {
+    const badgeScript = document.createElement("script");
+    badgeScript.src = "https://backend.signedreviews.com/badge.js";
+    badgeScript.async = true;
+    document.body.appendChild(badgeScript);
+
+    return () => {
+      document.body.removeChild(badgeScript);
+    };
+  }, []);
 
   return (
     <footer className="bg-[var(--muted)] border-t border-[var(--border)]">
@@ -52,6 +66,13 @@ export function Footer() {
               Payroll for freelancers. Invoice your clients, get paid, and let us
               handle all the tax admin.
             </p>
+
+            {/* Verified Reviews badge */}
+            <div
+              id="signedreviews-badge"
+              data-api-key={SIGNEDREVIEWS_API_KEY}
+              className="mt-6"
+            />
           </div>
 
           {/* Links */}
