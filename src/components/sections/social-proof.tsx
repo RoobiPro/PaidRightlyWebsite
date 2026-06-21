@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import Image from "next/image";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { FadeIn } from "@/components/ui/animate";
+import { VerifiedReviews } from "@/components/sections/verified-reviews";
 import { ShieldCheck, Lock, Award } from "lucide-react";
 
 const stats = [
@@ -20,58 +20,6 @@ const trustBadges = [
 ];
 
 export function SocialProof() {
-  useEffect(() => {
-    const syncScript = document.createElement("script");
-    syncScript.textContent = `(function() {
-  function isDarkMode() {
-    var html = document.documentElement;
-    return html.classList.contains('dark') ||
-           html.getAttribute('data-theme') === 'dark' ||
-           html.getAttribute('data-color-scheme') === 'dark';
-  }
-
-  function notifyWidget(isDark) {
-    var iframe = document.querySelector('iframe[title="SignedReviews Widget"]');
-    if (!iframe || !iframe.contentWindow) return false;
-    iframe.contentWindow.postMessage(
-      { type: 'vr-theme-toggle', theme: isDark ? 'dark' : 'light' },
-      '*'
-    );
-    return true;
-  }
-
-  var observer = new MutationObserver(function() {
-    notifyWidget(isDarkMode());
-  });
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['class', 'data-theme', 'data-color-scheme']
-  });
-
-  var pollCount = 0;
-  function pollAndSync() {
-    if (notifyWidget(isDarkMode())) return;
-    if (++pollCount < 50) setTimeout(pollAndSync, 300);
-  }
-  setTimeout(pollAndSync, 100);
-
-  window.addEventListener('message', function(e) {
-    if (e.data && e.data.type === 'vr-ready') notifyWidget(isDarkMode());
-  });
-})();`;
-    document.body.appendChild(syncScript);
-
-    const widgetScript = document.createElement("script");
-    widgetScript.src = "https://reviewplatform-production.up.railway.app/widget.js";
-    widgetScript.async = true;
-    document.body.appendChild(widgetScript);
-
-    return () => {
-      document.body.removeChild(syncScript);
-      document.body.removeChild(widgetScript);
-    };
-  }, []);
-
   return (
     <Section id="testimonials" className="relative overflow-hidden">
       {/* Background image */}
@@ -106,15 +54,8 @@ export function SocialProof() {
         </div>
       </FadeIn>
 
-      {/* Verified Reviews Widget */}
-      <FadeIn>
-        <div className="mb-16">
-          <div
-            id="signedreviews-widget"
-            data-api-key="vr_1lu980P7yYMxXZN6QysMXQuVgbbeiw15"
-          />
-        </div>
-      </FadeIn>
+      {/* Verified Reviews — custom-styled, sourced from the SignedReviews API */}
+      <VerifiedReviews />
 
       {/* Trust badges */}
       <FadeIn>
