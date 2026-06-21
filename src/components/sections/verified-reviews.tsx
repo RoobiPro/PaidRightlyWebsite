@@ -6,13 +6,29 @@ import { Card } from "@/components/ui/card";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/ui/animate";
 import { cn } from "@/lib/utils";
 import {
-  fetchVerifiedReviews,
   type Review,
   type ReviewSummary,
   type VerifiedReviewsData,
 } from "@/lib/signedreviews";
 
 type Status = "loading" | "ready" | "empty";
+
+async function loadReviews(
+  limit: number,
+  signal: AbortSignal
+): Promise<VerifiedReviewsData> {
+  // Same-origin proxy (app/api/reviews) — avoids the upstream CORS allowlist.
+  const res = await fetch(`/api/reviews?limit=${limit}`, { signal });
+  const json = (await res.json()) as {
+    success: boolean;
+    data: VerifiedReviewsData | null;
+    error: string | null;
+  };
+  if (!res.ok || !json.success || !json.data) {
+    throw new Error(json.error ?? `Request failed (${res.status})`);
+  }
+  return json.data;
+}
 
 function useVerifiedReviews(limit: number) {
   const [data, setData] = useState<VerifiedReviewsData | null>(null);
@@ -21,7 +37,7 @@ function useVerifiedReviews(limit: number) {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetchVerifiedReviews(limit, controller.signal)
+    loadReviews(limit, controller.signal)
       .then((result) => {
         if (controller.signal.aborted) return;
         if (result.reviews.length === 0 && result.summary.total === 0) {
@@ -33,9 +49,7 @@ function useVerifiedReviews(limit: number) {
       })
       .catch((error: unknown) => {
         if ((error as Error)?.name === "AbortError") return;
-        // The public API is gated behind a paid plan / rate limits; on any
-        // failure we fall back to hiding the section rather than showing a
-        // broken block.
+        // On any failure, hide the section rather than show a broken block.
         setStatus("empty");
       });
 

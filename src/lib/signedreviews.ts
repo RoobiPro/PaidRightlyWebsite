@@ -98,10 +98,14 @@ function normalizeReview(raw: unknown, index: number): Review {
   };
 }
 
-async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
+// NOTE: this runs server-side only (see app/api/reviews/route.ts). The public
+// API rejects browser requests from non-allowlisted origins with a 500, so we
+// proxy through our own route — a server-to-server call has no Origin header
+// and returns 200. Responses are cached to stay well under the rate limit.
+async function getJson<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     headers: { Authorization: `Bearer ${PUBLISHABLE_KEY}` },
-    signal,
+    next: { revalidate: 300 },
   });
 
   const json = (await res.json()) as RawEnvelope<T>;
@@ -117,15 +121,14 @@ async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
 
 /**
  * Fetch the rating summary and the most recent verified reviews in parallel.
- * Throws if either request fails (e.g. plan gating, rate limit, network).
+ * Server-side only. Throws if either request fails (rate limit, network, etc.).
  */
 export async function fetchVerifiedReviews(
-  limit = 9,
-  signal?: AbortSignal
+  limit = 9
 ): Promise<VerifiedReviewsData> {
   const [profileRaw, reviewsRaw] = await Promise.all([
-    getJson<unknown>("/profile", signal),
-    getJson<unknown>(`/reviews?page=1&limit=${limit}&sort=date_desc`, signal),
+    getJson<unknown>("/profile"),
+    getJson<unknown>(`/reviews?page=1&limit=${limit}&sort=date_desc`),
   ]);
 
   const reviewsArray = Array.isArray(reviewsRaw)
